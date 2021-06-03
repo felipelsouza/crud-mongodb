@@ -46,4 +46,14 @@ router.put('/books/:bookId', async (req, res) => {
   }
 });
 
+router.delete('/books/:bookId', async (req, res) => {
+  try {
+    await Book.findByIdAndDelete(req.params.bookId).then(() => {
+      return res.status(204);
+    });
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 module.exports = (app) => app.use('/api', router);
